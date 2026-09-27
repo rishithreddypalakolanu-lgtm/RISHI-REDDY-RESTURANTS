@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Rishi Restaurants | Fine Indian Dining &amp; Digital Menu</title>
+<meta name="description" content="Rishi Restaurants — delicious food, memorable moments. Explore our full menu, chef's specials, and order online." />
+
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<!-- ============ LOADER ============ -->
+<div id="page-loader" aria-hidden="true">
+  <div class="loader-content">
+    <i class="fa-solid fa-utensils"></i>
+    <span>Rishi Restaurants</span>
+  </div>
+</div>
+
+<!-- ============ HEADER ============ -->
+<header class="site-header" id="site-header">
+  <div class="container header-inner">
+    <a href="#home" class="logo">
+      <i class="fa-solid fa-utensils"></i>
+      <span>RISHI <em>Restaurants</em></span>
+    </a>
+
+    <nav class="main-nav" id="main-nav">
+      <ul>
+        <li><a href="#home" class="nav-link active">Home</a></li>
+        <li><a href="#menu" class="nav-link">Menu</a></li>
+        <li><a href="#specials" class="nav-link">Specials</a></li>
+        <li><a href="#about" class="nav-link">About</a></li>
+        <li><a href="#contact" class="nav-link">Contact</a></li>
+      </ul>
+    </nav>
+
+    <div class="header-actions">
+      <button class="icon-btn" id="search-toggle" aria-label="Search dishes" aria-expanded="false">
+        <i class="fa-solid fa-magnifying-glass"></i>
+      </button>
+      <button class="icon-btn cart-btn" id="cart-toggle" aria-label="Open cart">
+        <i class="fa-solid fa-cart-shopping"></i>
+        <span class="cart-count" id="cart-count">0</span>
+      </button>
+      <button class="icon-btn hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- Search overlay bar -->
+  <div class="search-bar" id="search-bar">
+    <div class="container search-bar-inner">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <input type="search" id="search-input" placeholder="Search for a dish, e.g. Butter Chicken, Biryani..." aria-label="Search dishes" />
+      <button id="search-close" aria-label="Close search"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+  </div>
+</header>
+
+<!-- ============ MOBILE NAV ============ -->
+<div class="mobile-nav-overlay" id="mobile-nav-overlay"></div>
+<nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation">
+  <button class="icon-btn mobile-nav-close" id="mobile-nav-close" aria-label="Close menu"><i class="fa-solid fa-xmark"></i></button>
+  <ul>
+    <li><a href="#home" class="mobile-nav-link">Home</a></li>
+    <li><a href="#menu" class="mobile-nav-link">Menu</a></li>
+    <li><a href="#specials" class="mobile-nav-link">Specials</a></li>
+    <li><a href="#about" class="mobile-nav-link">About</a></li>
+    <li><a href="#contact" class="mobile-nav-link">Contact</a></li>
+  </ul>
+  <div class="mobile-nav-social">
+    <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+    <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+    <a href="#" aria-label="X (Twitter)"><i class="fa-brands fa-x-twitter"></i></a>
+    <a href="#" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+  </div>
+</nav>
+
+<main>
+  <!-- ============ HERO ============ -->
+  <section class="hero" id="home">
+    <div class="hero-bg" style="background-image:url('/.netlify/images?url=/img/hero-bg.jpg&amp;w=1600&amp;fm=webp&amp;q=80')"></div>
+    <div class="hero-overlay"></div>
+    <div class="container hero-content">
+      <p class="hero-eyebrow reveal">Est. Fine Indian &amp; Multi-Cuisine Dining</p>
+      <h1 class="reveal">RISHI <span>RESTAURANTS</span></h1>
+      <p class="hero-tagline reveal">Delicious Food. Memorable Moments.</p>
+      <p class="hero-desc reveal">From sizzling tandoori starters to slow-simmered curries, fragrant biryanis and indulgent desserts — every dish at Rishi Restaurants is crafted with fresh ingredients and generations of culinary passion.</p>
+      <div class="hero-actions reveal">
+        <a href="#menu" class="btn btn-primary">Explore Menu <i class="fa-solid fa-arrow-right"></i></a>
+        <a href="#specials" class="btn btn-outline">Chef's Specials</a>
+      </div>
+    </div>
+    <a href="#menu" class="scroll-cue" aria-label="Scroll to menu"><i class="fa-solid fa-chevron-down"></i></a>
+  </section>
+
+  <!-- ============ HIGHLIGHTS STRIP ============ -->
+  <section class="highlights">
+    <div class="container highlights-grid">
+      <div class="highlight-item reveal">
+        <i class="fa-solid fa-leaf"></i>
+        <h3>Fresh Ingredients</h3>
+        <p>Sourced daily for peak flavor</p>
+      </div>
+      <div class="highlight-item reveal">
+        <i class="fa-solid fa-fire-burner"></i>
+        <h3>Authentic Recipes</h3>
+        <p>Traditional taste, expert hands</p>
+      </div>
+      <div class="highlight-item reveal">
+        <i class="fa-solid fa-motorcycle"></i>
+        <h3>Fast Delivery</h3>
+        <p>Hot food, right on time</p>
+      </div>
+      <div class="highlight-item reveal">
+        <i class="fa-solid fa-star"></i>
+        <h3>Top Rated</h3>
+        <p>Loved by thousands of guests</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CHEF'S SPECIALS ============ -->
+  <section class="specials" id="specials">
+    <div class="container">
+      <div class="section-heading reveal">
+        <p class="section-eyebrow">Handpicked by our chefs</p>
+        <h2>Chef's Specials</h2>
+        <p class="section-sub">Our most-loved dishes, perfected over years and adored by our guests.</p>
+      </div>
+      <div class="specials-grid" id="specials-grid"><!-- injected by JS --></div>
+    </div>
+  </section>
+
+  <!-- ============ MENU ============ -->
+  <section class="menu-section" id="menu">
+    <div class="container">
+      <div class="section-heading reveal">
+        <p class="section-eyebrow">Our Full Menu</p>
+        <h2>Explore The Menu</h2>
+        <p class="section-sub">Browse by category or search for your favorite dish.</p>
+      </div>
+
+      <div class="menu-search reveal">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="search" id="menu-search-input" placeholder="Search dishes..." aria-label="Search menu" />
+      </div>
+
+      <div class="category-filters reveal" id="category-filters">
+        <button class="cat-btn active" data-category="all"><i class="fa-solid fa-utensils"></i> All</button>
+        <!-- category buttons injected by JS -->
+      </div>
+
+      <div class="menu-grid" id="menu-grid"><!-- injected by JS --></div>
+      <p class="no-results" id="no-results" hidden>No dishes match your search. Try another keyword.</p>
+    </div>
+  </section>
+
+  <!-- ============ ABOUT ============ -->
+  <section class="about" id="about">
+    <div class="container about-grid">
+      <div class="about-image reveal">
+        <img src="/.netlify/images?url=/img/butter-chicken.jpg&amp;w=700&amp;fm=webp&amp;q=80" alt="Signature dish plated at Rishi Restaurants" loading="lazy" width="700" height="700" />
+        <div class="about-badge">
+          <span>25+</span>
+          <small>Years of Flavor</small>
+        </div>
+      </div>
+      <div class="about-content reveal">
+        <p class="section-eyebrow">Our Story</p>
+        <h2>About Rishi Restaurants</h2>
+        <p>For over two decades, Rishi Restaurants has been serving delicious, fresh, and high-quality food in a warm, welcoming atmosphere. What began as a small family kitchen has grown into a beloved dining destination — but our promise has never changed: honest ingredients, authentic recipes, and hospitality that feels like home.</p>
+        <p>Every dish on our menu is prepared fresh to order by our expert chefs, blending time-honored Indian culinary traditions with modern presentation. Whether you're joining us for a quiet family dinner or celebrating a special occasion, we're here to make every meal a memorable moment.</p>
+        <ul class="about-list">
+          <li><i class="fa-solid fa-check"></i> Fresh, high-quality ingredients sourced daily</li>
+          <li><i class="fa-solid fa-check"></i> Authentic recipes crafted by expert chefs</li>
+          <li><i class="fa-solid fa-check"></i> Warm, welcoming dining atmosphere</li>
+          <li><i class="fa-solid fa-check"></i> Hygienic kitchen &amp; quality-assured service</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CONTACT ============ -->
+  <section class="contact" id="contact">
+    <div class="container">
+      <div class="section-heading reveal light">
+        <p class="section-eyebrow">Get In Touch</p>
+        <h2>Contact Us</h2>
+        <p class="section-sub">We'd love to welcome you — visit, call, or reach out anytime.</p>
+      </div>
+
+      <div class="contact-grid">
+        <div class="contact-info reveal">
+          <div class="contact-card">
+            <i class="fa-solid fa-location-dot"></i>
+            <div>
+              <h4>Our Address</h4>
+              <p>123 Food Street, Gourmet Plaza,<br />Bengaluru, Karnataka 560001, India</p>
+            </div>
+          </div>
+          <div class="contact-card">
+            <i class="fa-solid fa-phone"></i>
+            <div>
+              <h4>Phone</h4>
+              <p><a href="tel:+919876543210">+91 98765 43210</a></p>
+            </div>
+          </div>
+          <div class="contact-card">
+            <i class="fa-solid fa-envelope"></i>
+            <div>
+              <h4>Email</h4>
+              <p><a href="mailto:info@rishirestaurants.com">info@rishirestaurants.com</a></p>
+            </div>
+          </div>
+          <div class="contact-card">
+            <i class="fa-solid fa-clock"></i>
+            <div>
+              <h4>Opening Hours</h4>
+              <p>Mon – Fri: 11:00 AM – 11:00 PM<br />Sat – Sun: 10:00 AM – 12:00 AM</p>
+            </div>
+          </div>
+          <div class="contact-social">
+            <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#" aria-label="X (Twitter)"><i class="fa-brands fa-x-twitter"></i></a>
+            <a href="#" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+          </div>
+        </div>
+
+        <div class="contact-map reveal">
+          <iframe
+            title="Rishi Restaurants location map"
+            src="https://maps.google.com/maps?q=restaurant&z=14&output=embed"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            aria-label="Map showing approximate restaurant location placeholder">
+          </iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-col footer-brand">
+      <a href="#home" class="logo">
+        <i class="fa-solid fa-utensils"></i>
+        <span>RISHI <em>Restaurants</em></span>
+      </a>
+      <p>Delicious food, memorable moments. Serving authentic flavors with warmth and care since day one.</p>
+      <div class="footer-social">
+        <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+        <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+        <a href="#" aria-label="X (Twitter)"><i class="fa-brands fa-x-twitter"></i></a>
+        <a href="#" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+      </div>
+    </div>
+
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#menu">Menu</a></li>
+        <li><a href="#specials">Chef's Specials</a></li>
+        <li><a href="#about">About Us</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4>Menu Categories</h4>
+      <ul id="footer-categories"><!-- injected by JS --></ul>
+    </div>
+
+    <div class="footer-col">
+      <h4>Contact Info</h4>
+      <ul class="footer-contact">
+        <li><i class="fa-solid fa-location-dot"></i> 123 Food Street, Gourmet Plaza, Bengaluru 560001</li>
+        <li><i class="fa-solid fa-phone"></i> <a href="tel:+919876543210">+91 98765 43210</a></li>
+        <li><i class="fa-solid fa-envelope"></i> <a href="mailto:info@rishirestaurants.com">info@rishirestaurants.com</a></li>
+        <li><i class="fa-solid fa-clock"></i> 11:00 AM – 11:00 PM, Daily</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p>&copy; <span id="year"></span> Rishi Restaurants. All rights reserved.</p>
+  </div>
+</footer>
+
+<!-- ============ CART DRAWER ============ -->
+<div class="cart-overlay" id="cart-overlay"></div>
+<aside class="cart-drawer" id="cart-drawer" aria-label="Shopping cart">
+  <div class="cart-header">
+    <h3><i class="fa-solid fa-cart-shopping"></i> Your Cart</h3>
+    <button class="icon-btn" id="cart-close" aria-label="Close cart"><i class="fa-solid fa-xmark"></i></button>
+  </div>
+
+  <div class="cart-items" id="cart-items">
+    <!-- injected by JS -->
+  </div>
+
+  <div class="cart-empty" id="cart-empty">
+    <i class="fa-solid fa-cart-shopping"></i>
+    <p>Your cart is empty.</p>
+    <a href="#menu" class="btn btn-primary" id="cart-empty-browse">Browse Menu</a>
+  </div>
+
+  <div class="cart-footer" id="cart-footer">
+    <div class="cart-row"><span>Subtotal</span><span id="cart-subtotal">₹0</span></div>
+    <div class="cart-row"><span>Delivery</span><span id="cart-delivery">₹0</span></div>
+    <div class="cart-row cart-total"><span>Total</span><span id="cart-total">₹0</span></div>
+    <div class="cart-buttons">
+      <button class="btn btn-outline" id="cart-clear">Clear Cart</button>
+      <button class="btn btn-primary" id="cart-checkout">Checkout</button>
+    </div>
+  </div>
+</aside>
+
+<!-- ============ TOAST ============ -->
+<div class="toast" id="toast"></div>
+
+<!-- ============ BACK TO TOP ============ -->
+<button class="back-to-top" id="back-to-top" aria-label="Back to top">
+  <i class="fa-solid fa-arrow-up"></i>
+</button>
+
+<script src="js/menu-data.js"></script>
+<script src="js/script.js"></script>
+</body>
+</html>
