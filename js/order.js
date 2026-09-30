@@ -7,6 +7,7 @@
 
   const CART_KEY = "rishi-restaurants-cart";
   const ORDERS_KEY = "rishi-restaurants-orders";
+const RESTAURANT_UPI_ID = "9493221576-3@ibl";
   const DELIVERY_FEE = 40;
   const GST_RATE = 0.05;
 
@@ -339,7 +340,14 @@
       form.reset();
       appliedCoupon = null;
       $("coupon-message").textContent = "";
-      window.dispatchEvent(new CustomEvent("rishi:order-completed"));
+      if (paymentMethod === "UPI") {
+    const upiUrl = "upi://pay?pa=" + encodeURIComponent(RESTAURANT_UPI_ID) +
+      "&pn=" + encodeURIComponent("Rishi Restaurants") +
+      "&am=" + encodeURIComponent(total.toFixed(2)) + "&cu=INR";
+    window.location.href = upiUrl;
+  }
+
+  window.dispatchEvent(new CustomEvent("rishi:order-completed"));
     });
 
     window.addEventListener("rishi:open-checkout", () => {
