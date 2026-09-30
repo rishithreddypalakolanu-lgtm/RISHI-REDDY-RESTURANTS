@@ -361,10 +361,10 @@ const RESTAURANT_WHATSAPP = "919493221576";
       form.reset();
       appliedCoupon = null;
       $("coupon-message").textContent = "";
-      if (paymentMethod === "UPI") {
+      if (order.paymentMethod === "UPI") {
     const upiUrl = "upi://pay?pa=" + encodeURIComponent(RESTAURANT_UPI_ID) +
       "&pn=" + encodeURIComponent("Rishi Restaurants") +
-      "&am=" + encodeURIComponent(total.toFixed(2)) + "&cu=INR";
+      "&am=" + encodeURIComponent(order.total.toFixed(2)) + "&cu=INR";
     window.location.href = upiUrl;
   }
 
