@@ -234,6 +234,7 @@ const RESTAURANT_WHATSAPP = "919493221576";
       '<div class="grand"><span>Grand Total</span><strong>' + money(order.total) + '</strong></div>' +
       '</div>' +
       '<div class="order-actions"><button class="btn btn-primary" data-print-order="' + order.orderId + '"><i class="fa-solid fa-print"></i> Print Receipt</button>' +
+      '<button class="btn btn-primary" data-whatsapp-order="' + order.orderId + '"><i class="fa-brands fa-whatsapp"></i> Order on WhatsApp</button>' +
       '<button class="btn btn-outline" data-reorder="' + order.orderId + '"><i class="fa-solid fa-rotate-right"></i> Reorder</button></div>' +
       '</div>';
   }
@@ -304,6 +305,12 @@ const RESTAURANT_WHATSAPP = "919493221576";
       if (e.target.closest("[data-back-orders]")) renderOrders();
       const print = e.target.closest("[data-print-order]");
       if (print) printReceipt(print.dataset.printOrder);
+
+      const wa = e.target.closest("[data-whatsapp-order]");
+      if (wa) {
+        const order = getOrders().find(item => item.orderId === wa.dataset.whatsappOrder);
+        if (order) sendOrderToWhatsApp(order);
+      }
       const reorderBtn = e.target.closest("[data-reorder]");
       if (reorderBtn) reorder(reorderBtn.dataset.reorder);
     });
