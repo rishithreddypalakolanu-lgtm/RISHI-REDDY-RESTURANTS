@@ -18,7 +18,19 @@
   function loadCart() {
     try {
       const raw = localStorage.getItem(CART_KEY);
-      return raw ? JSON.parse(raw) : {};
+      const saved = raw ? JSON.parse(raw) : {};
+      const migrated = {};
+      Object.entries(saved).forEach(([id, entry]) => {
+        const item = MENU_ITEMS.find(menuItem => String(menuItem.id) === String(id));
+        if (item && Number(entry?.qty) > 0) {
+          migrated[id] = {
+            qty: Number(entry.qty),
+            price: Number(item.price),
+            name: item.name
+          };
+        }
+      });
+      return migrated;
     } catch (e) {
       return {};
     }
@@ -169,7 +181,7 @@
     if (cart[id]) {
       cart[id].qty += qty;
     } else {
-      cart[id] = { qty };
+      cart[id] = { qty, price: Number(item.price), name: item.name };
     }
     saveCart();
     syncCartUI();
