@@ -314,11 +314,20 @@
     document.getElementById("cart-empty-browse").addEventListener("click", close);
     document.getElementById("cart-checkout").addEventListener("click", () => {
       if (cartCount() === 0) return;
-      showToast("Order placed! Thank you for choosing Rishi Restaurants.", "fa-circle-check");
-      clearCart();
-      close();
+      window.dispatchEvent(new CustomEvent("rishi:open-checkout"));
     });
   }
+
+  window.addEventListener("rishi:order-completed", () => {
+    cart = {};
+    saveCart();
+    syncCartUI();
+    const drawer = document.getElementById("cart-drawer");
+    const overlay = document.getElementById("cart-overlay");
+    if (drawer) drawer.classList.remove("open");
+    if (overlay) overlay.classList.remove("open");
+    document.body.style.overflow = "";
+  });
 
   /* ---------------- Search (header overlay + menu section) ---------------- */
   function initSearch() {
