@@ -333,10 +333,16 @@ const RESTAURANT_WHATSAPP = "919493221576";
   }
 
   function init() {
-    $("orders-toggle").addEventListener("click", () => {
+    const openOrders = () => {
       renderOrders();
       openModal("orders-modal");
-    });
+      const mobileNav = $("mobile-nav");
+      if (mobileNav) mobileNav.classList.remove("open");
+    };
+
+    $("orders-toggle").addEventListener("click", openOrders);
+    const mobileOrders = $("mobile-orders-toggle");
+    if (mobileOrders) mobileOrders.addEventListener("click", openOrders);
 
     document.addEventListener("click", (e) => {
       if (e.target.closest("[data-close-order]")) closeModal("checkout-modal");
