@@ -8,6 +8,7 @@
   const CART_KEY = "rishi-restaurants-cart";
   const ORDERS_KEY = "rishi-restaurants-orders";
 const RESTAURANT_UPI_ID = "9493221576-3@ibl";
+const RESTAURANT_WHATSAPP = "919493221576";
   const DELIVERY_FEE = 40;
   const GST_RATE = 0.05;
 
@@ -374,3 +375,32 @@ const RESTAURANT_UPI_ID = "9493221576-3@ibl";
 
   document.addEventListener("DOMContentLoaded", init);
 })();
+
+function sendOrderToWhatsApp(order) {
+  const itemLines = order.items.map(item =>
+    `• ${item.name} × ${item.quantity} — ₹${(item.price * item.quantity).toFixed(2)}`
+  ).join("\n");
+
+  const message =
+    "🍽️ *RISHI RESTAURANTS - NEW ORDER*\\n\\n" +
+    "*Order ID:* " + order.orderId + "\\n" +
+    "*Customer:* " + order.customerName + "\\n" +
+    "*Mobile:* " + order.mobile + "\\n" +
+    "*Order Type:* " + order.orderType + "\\n\\n" +
+    "*Items:*\\n" + itemLines + "\\n\\n" +
+    "*Subtotal:* ₹" + order.subtotal.toFixed(2) + "\\n" +
+    "*Delivery:* ₹" + order.delivery.toFixed(2) + "\\n" +
+    "*GST:* ₹" + order.gst.toFixed(2) + "\\n" +
+    "*Discount:* ₹" + order.discount.toFixed(2) + "\\n" +
+    "*TOTAL:* ₹" + order.total.toFixed(2) + "\\n\\n" +
+    "*Payment:* " + order.paymentMethod + "\\n" +
+    (order.address ? "*Address:* " + order.address + "\\n" : "") +
+    (order.notes ? "*Instructions:* " + order.notes : "");
+
+  window.open(
+    "https://wa.me/" + RESTAURANT_WHATSAPP + "?text=" + encodeURIComponent(message),
+    "_blank"
+  );
+}
+
+window.sendOrderToWhatsApp = sendOrderToWhatsApp;
