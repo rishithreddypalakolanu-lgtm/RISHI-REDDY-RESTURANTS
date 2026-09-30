@@ -52,6 +52,9 @@
         <i class="fa-solid fa-cart-shopping"></i>
         <span class="cart-count" id="cart-count">0</span>
       </button>
+      <button class="orders-header-btn" id="orders-toggle" aria-label="View my orders">
+        <i class="fa-solid fa-receipt"></i><span>Orders</span>
+      </button>
       <button class="icon-btn hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
         <i class="fa-solid fa-bars"></i>
       </button>
@@ -331,6 +334,98 @@
   </div>
 </aside>
 
+<!-- ============ CHECKOUT MODAL ============ -->
+<div class="order-modal" id="checkout-modal" aria-hidden="true">
+  <div class="order-modal-backdrop" data-close-order></div>
+  <section class="order-modal-panel checkout-panel" role="dialog" aria-modal="true" aria-labelledby="checkout-title">
+    <div class="order-modal-header">
+      <div>
+        <p class="section-eyebrow">Secure Checkout</p>
+        <h2 id="checkout-title">Complete Your Order</h2>
+      </div>
+      <button class="icon-btn" data-close-order aria-label="Close checkout"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <form id="checkout-form" class="checkout-form">
+      <div class="checkout-layout">
+        <div>
+          <div class="order-card">
+            <h3><i class="fa-solid fa-user"></i> Customer Details</h3>
+            <div class="form-grid">
+              <label>Full Name *<input name="name" required maxlength="80" autocomplete="name" placeholder="Your full name"></label>
+              <label>Mobile Number *<input name="phone" required inputmode="numeric" pattern="[6-9][0-9]{9}" maxlength="10" autocomplete="tel" placeholder="10-digit mobile number"></label>
+              <label>Email<input name="email" type="email" maxlength="120" autocomplete="email" placeholder="you@example.com"></label>
+              <label>Order Type *
+                <select name="orderType" id="order-type" required>
+                  <option value="delivery">Home Delivery</option>
+                  <option value="pickup">Restaurant Pickup</option>
+                </select>
+              </label>
+            </div>
+          </div>
+
+          <div class="order-card" id="delivery-fields">
+            <h3><i class="fa-solid fa-location-dot"></i> Delivery Address</h3>
+            <div class="form-grid">
+              <label class="full">Address *<textarea name="address" rows="3" maxlength="300" placeholder="House / flat, street and area"></textarea></label>
+              <label>City *<input name="city" maxlength="60" placeholder="City"></label>
+              <label>State *<input name="state" maxlength="60" placeholder="State"></label>
+              <label>Pincode *<input name="pincode" inputmode="numeric" pattern="[0-9]{6}" maxlength="6" placeholder="6-digit pincode"></label>
+              <label>Landmark<input name="landmark" maxlength="100" placeholder="Nearby landmark"></label>
+            </div>
+          </div>
+
+          <div class="order-card">
+            <h3><i class="fa-solid fa-credit-card"></i> Payment Method</h3>
+            <div class="payment-options">
+              <label class="payment-option"><input type="radio" name="payment" value="Cash on Delivery" required><span><i class="fa-solid fa-money-bill-wave"></i><b>Cash on Delivery</b><small>Pay when your order arrives</small></span></label>
+              <label class="payment-option"><input type="radio" name="payment" value="UPI"><span><i class="fa-solid fa-mobile-screen-button"></i><b>UPI</b><small>Demo UPI selection</small></span></label>
+              <label class="payment-option"><input type="radio" name="payment" value="Card"><span><i class="fa-solid fa-credit-card"></i><b>Credit / Debit Card</b><small>No card details are stored by this demo</small></span></label>
+              <label class="payment-option"><input type="radio" name="payment" value="Pay at Restaurant"><span><i class="fa-solid fa-store"></i><b>Pay at Restaurant</b><small>Available for pickup</small></span></label>
+            </div>
+          </div>
+
+          <div class="order-card">
+            <h3><i class="fa-solid fa-ticket"></i> Coupon & Notes</h3>
+            <div class="coupon-row">
+              <input id="coupon-input" placeholder="Coupon code (optional)" maxlength="20">
+              <button type="button" class="btn btn-outline" id="apply-coupon">Apply</button>
+            </div>
+            <p class="coupon-message" id="coupon-message"></p>
+            <label class="notes-label">Special Instructions<textarea name="notes" rows="2" maxlength="250" placeholder="Less spicy, no onions, etc."></textarea></label>
+          </div>
+        </div>
+
+        <aside class="checkout-summary order-card">
+          <h3><i class="fa-solid fa-bag-shopping"></i> Purchase Summary</h3>
+          <div id="checkout-items"></div>
+          <div class="summary-line"><span>Subtotal</span><strong id="checkout-subtotal">₹0</strong></div>
+          <div class="summary-line"><span>Delivery</span><strong id="checkout-delivery">₹0</strong></div>
+          <div class="summary-line"><span>GST (5%)</span><strong id="checkout-tax">₹0</strong></div>
+          <div class="summary-line"><span>Discount</span><strong id="checkout-discount">-₹0</strong></div>
+          <div class="summary-total"><span>Grand Total</span><strong id="checkout-total">₹0</strong></div>
+          <button type="submit" class="btn btn-primary checkout-submit"><i class="fa-solid fa-lock"></i> Place Order</button>
+          <p class="secure-note"><i class="fa-solid fa-shield-halved"></i> Your order details are saved securely in this browser.</p>
+        </aside>
+      </div>
+    </form>
+  </section>
+</div>
+
+<!-- ============ ORDER HISTORY MODAL ============ -->
+<div class="order-modal" id="orders-modal" aria-hidden="true">
+  <div class="order-modal-backdrop" data-close-orders></div>
+  <section class="order-modal-panel" role="dialog" aria-modal="true" aria-labelledby="orders-title">
+    <div class="order-modal-header">
+      <div>
+        <p class="section-eyebrow">Purchase History</p>
+        <h2 id="orders-title">My Orders</h2>
+      </div>
+      <button class="icon-btn" data-close-orders aria-label="Close orders"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div id="orders-list" class="orders-list"></div>
+  </section>
+</div>
+
 <!-- ============ TOAST ============ -->
 <div class="toast" id="toast"></div>
 
@@ -341,5 +436,6 @@
 
 <script src="js/menu-data.js"></script>
 <script src="js/script.js"></script>
+<script src="js/order.js"></script>
 </body>
 </html>
