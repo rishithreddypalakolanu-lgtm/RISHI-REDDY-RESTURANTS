@@ -27,8 +27,11 @@ const RESTAURANT_WHATSAPP = "919493221576";
 
   function readOrders() {
     try {
-      const orders = JSON.parse(localStorage.getItem(ORDERS_KEY) || "[]");
-      return Array.isArray(orders) ? orders : [];
+      const raw = JSON.parse(localStorage.getItem(ORDERS_KEY) || "[]");
+      if (!Array.isArray(raw)) return [];
+      const fixed = raw.map(normalizedOrder);
+      localStorage.setItem(ORDERS_KEY, JSON.stringify(fixed));
+      return fixed;
     } catch (_) { return []; }
   }
 
@@ -42,36 +45,24 @@ const RESTAURANT_WHATSAPP = "919493221576";
 
   function normalizedOrder(order) {
     const items = Array.isArray(order.items) ? order.items : [];
-    const subtotalFromItems = items.reduce((sum, item) => {
-      const amount = Number(item.amount);
-      if (Number.isFinite(amount)) return sum + amount;
-      return sum + (Number(item.price) || 0) * (Number(item.qty) || Number(item.quantity) || 0);
-    }, 0);
-    const subtotal = Number(order.subtotal) > 0 ? Number(order.subtotal) : subtotalFromItems;
-    const delivery = Number(order.delivery) > 0 ? Number(order.delivery) : (subtotal > 0 && order.orderType === "delivery" ? DELIVERY_FEE : 0);
+    const fixedItems = items.map(item => {
+      const menuItem = itemFor(item.id);
+      const price = Number(menuItem?.price ?? item.price ?? 0);
+      const qty = Number(item.qty ?? item.quantity ?? 0);
+      return {
+        ...item,
+        price,
+        qty,
+        amount: price * qty,
+        name: menuItem?.name || item.name || "Menu Item"
+      };
+    });
+    const subtotal = fixedItems.reduce((sum, item) => sum + item.amount, 0);
     const discount = Math.min(Number(order.discount) || 0, subtotal);
-    const tax = Number(order.tax) > 0 ? Number(order.tax) : Math.max(0, subtotal - discount) * GST_RATE;
-    const total = Number(order.total) > 0 ? Number(order.total) : Math.max(0, subtotal - discount) + delivery + tax;
-    return { ...order, subtotal, delivery, discount, tax, total };
-  }
-
-  function cartSubtotal(cart) {
-    return Object.entries(cart).reduce((sum, [id, entry]) => {
-      const item = itemFor(id);
-      return item ? sum + item.price * Number(entry.qty || 0) : sum;
-    }, 0);
-  }
-
-  function getTotals(cart) {
-    const subtotal = cartSubtotal(cart);
-    const delivery = subtotal ? DELIVERY_FEE : 0;
-    const discount = appliedCoupon ? (
-      appliedCoupon.type === "percent" ? subtotal * appliedCoupon.value / 100 : appliedCoupon.value
-    ) : 0;
-    const taxable = Math.max(0, subtotal - discount);
-    const tax = taxable * GST_RATE;
-    const total = taxable + delivery + tax;
-    return { subtotal, delivery, discount: Math.min(discount, subtotal), tax, total };
+    const delivery = order.orderType === "delivery" && subtotal > 0 ? DELIVERY_FEE : 0;
+    const tax = Math.max(0, subtotal - discount) * GST_RATE;
+    const total = Math.max(0, subtotal - discount) + delivery + tax;
+    return { ...order, items: fixedItems, subtotal, delivery, discount, tax, total };
   }
 
   function generateOrderId() {
