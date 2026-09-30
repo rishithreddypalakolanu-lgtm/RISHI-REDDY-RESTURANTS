@@ -40,6 +40,21 @@ const RESTAURANT_WHATSAPP = "919493221576";
     return Array.isArray(window.MENU_ITEMS) ? window.MENU_ITEMS.find(item => String(item.id) === String(id)) : null;
   }
 
+  function normalizedOrder(order) {
+    const items = Array.isArray(order.items) ? order.items : [];
+    const subtotalFromItems = items.reduce((sum, item) => {
+      const amount = Number(item.amount);
+      if (Number.isFinite(amount)) return sum + amount;
+      return sum + (Number(item.price) || 0) * (Number(item.qty) || Number(item.quantity) || 0);
+    }, 0);
+    const subtotal = Number(order.subtotal) > 0 ? Number(order.subtotal) : subtotalFromItems;
+    const delivery = Number(order.delivery) > 0 ? Number(order.delivery) : (subtotal > 0 && order.orderType === "delivery" ? DELIVERY_FEE : 0);
+    const discount = Math.min(Number(order.discount) || 0, subtotal);
+    const tax = Number(order.tax) > 0 ? Number(order.tax) : Math.max(0, subtotal - discount) * GST_RATE;
+    const total = Number(order.total) > 0 ? Number(order.total) : Math.max(0, subtotal - discount) + delivery + tax;
+    return { ...order, subtotal, delivery, discount, tax, total };
+  }
+
   function cartSubtotal(cart) {
     return Object.entries(cart).reduce((sum, [id, entry]) => {
       const item = itemFor(id);
@@ -209,6 +224,7 @@ const RESTAURANT_WHATSAPP = "919493221576";
   }
 
   function orderDetailsHTML(order) {
+    order = normalizedOrder(order);
     const address = order.address
       ? order.address.address + ", " + order.address.city + ", " + order.address.state + " - " + order.address.pincode +
         (order.address.landmark ? " (" + order.address.landmark + ")" : "")
@@ -384,6 +400,7 @@ const RESTAURANT_WHATSAPP = "919493221576";
 })();
 
 function sendOrderToWhatsApp(order) {
+  order = normalizedOrder(order);
   const itemLines = order.items.map(item =>
     `• ${item.name} × ${item.quantity} — ₹${(item.price * item.quantity).toFixed(2)}`
   ).join("\n");
@@ -397,7 +414,7 @@ function sendOrderToWhatsApp(order) {
     "*Items:*\\n" + itemLines + "\\n\\n" +
     "*Subtotal:* ₹" + order.subtotal.toFixed(2) + "\\n" +
     "*Delivery:* ₹" + order.delivery.toFixed(2) + "\\n" +
-    "*GST:* ₹" + order.gst.toFixed(2) + "\\n" +
+    "*GST:* ₹" + order.tax.toFixed(2) + "\\n" +
     "*Discount:* ₹" + order.discount.toFixed(2) + "\\n" +
     "*TOTAL:* ₹" + order.total.toFixed(2) + "\\n\\n" +
     "*Payment:* " + order.paymentMethod + "\\n" +
