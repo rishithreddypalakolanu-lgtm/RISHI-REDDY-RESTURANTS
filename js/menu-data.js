@@ -227,3 +227,7 @@ const MENU_ITEMS = [
     img: IMG("masala-chai.jpg"),
   },
 ];
+
+
+// Public reference for checkout/order calculations.
+window.RISHI_MENU_ITEMS = MENU_ITEMS;
