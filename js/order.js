@@ -40,7 +40,13 @@ const RESTAURANT_WHATSAPP = "919493221576";
   }
 
   function itemFor(id) {
-    return Array.isArray(window.MENU_ITEMS) ? window.MENU_ITEMS.find(item => String(item.id) === String(id)) : null;
+    try {
+      return Array.isArray(MENU_ITEMS)
+        ? MENU_ITEMS.find(item => String(item.id) === String(id))
+        : null;
+    } catch (_) {
+      return null;
+    }
   }
 
   function normalizedOrder(order) {
