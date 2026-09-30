@@ -55,6 +55,28 @@ const RESTAURANT_WHATSAPP = "919493221576";
     return null;
   }
 
+  function cartSubtotal(cart) {
+    return Object.entries(cart).reduce((sum, [id, entry]) => {
+      const item = itemFor(id, entry);
+      return item ? sum + Number(item.price || 0) * Number(entry.qty || 0) : sum;
+    }, 0);
+  }
+
+  function getTotals(cart) {
+    const subtotal = cartSubtotal(cart);
+    const delivery = subtotal > 0 ? DELIVERY_FEE : 0;
+    const discount = appliedCoupon
+      ? (appliedCoupon.type === "percent"
+        ? subtotal * appliedCoupon.value / 100
+        : appliedCoupon.value)
+      : 0;
+    const safeDiscount = Math.min(discount, subtotal);
+    const taxable = Math.max(0, subtotal - safeDiscount);
+    const tax = taxable * GST_RATE;
+    const total = taxable + delivery + tax;
+    return { subtotal, delivery, discount: safeDiscount, tax, total };
+  }
+
   function normalizedOrder(order) {
     const items = Array.isArray(order.items) ? order.items : [];
     const fixedItems = items.map(item => {
