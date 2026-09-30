@@ -30,6 +30,8 @@
           };
         }
       });
+      // Keep the browser's saved cart in the same format used by checkout.
+      localStorage.setItem(CART_KEY, JSON.stringify(migrated));
       return migrated;
     } catch (e) {
       return {};
