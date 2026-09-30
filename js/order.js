@@ -39,11 +39,20 @@ const RESTAURANT_WHATSAPP = "919493221576";
     localStorage.setItem(ORDERS_KEY, JSON.stringify(orders));
   }
 
-  function itemFor(id) {
+  function itemFor(id, entry) {
     const items = window.RISHI_MENU_ITEMS;
-    return Array.isArray(items)
+    const menuItem = Array.isArray(items)
       ? items.find(item => String(item.id) === String(id))
       : null;
+    if (menuItem) return menuItem;
+    if (entry && Number(entry.price) > 0) {
+      return {
+        id,
+        name: entry.name || "Menu Item",
+        price: Number(entry.price)
+      };
+    }
+    return null;
   }
 
   function normalizedOrder(order) {
@@ -109,7 +118,7 @@ const RESTAURANT_WHATSAPP = "919493221576";
 
     const totals = getTotals(cart);
     $("checkout-items").innerHTML = Object.entries(cart).map(([id, entry]) => {
-      const item = itemFor(id);
+      const item = itemFor(id, entry);
       if (!item) return "";
       return '<div class="checkout-item"><div><b>' + item.name + '</b><small>' +
         Number(entry.qty) + ' × ' + money(item.price) + '</small></div><strong>' +
